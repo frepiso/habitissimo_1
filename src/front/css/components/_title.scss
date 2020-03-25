@@ -1,0 +1,19 @@
+/* title */
+.ss-title {
+  margin-bottom: 28px;
+
+  &-title {
+    font-size: $font-size-h1;
+    font-weight: 400;
+    color: $primary-color;
+    margin-top: 32px;
+    margin-bottom: 8px;
+  }
+
+  &-subtitle {
+    font-size: $font-size-xl;
+    font-weight: 400;
+    color: $tertiary-color;
+    margin-bottom: 16px;
+  }
+}

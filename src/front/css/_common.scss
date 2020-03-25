@@ -1,0 +1,26 @@
+/* common */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "AvenirNext", "Arial" !important;
+  color: $primary-color;
+  background: #ededed;
+}
+
+.ss-container {
+    width: 1160px;
+    margin: auto;
+}
+
+.ss-content-wrapper {
+  width: 1160px;
+  margin: 40px auto 50px;
+}
+
+.ss-grid-content-wrapper {
+  display: grid;
+  grid-template-columns: 480px auto;
+}

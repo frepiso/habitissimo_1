@@ -1,0 +1,88 @@
+/* info */
+.ss-home:before { content:url("./imgs/generic.png"); }
+.ss-reforms:before { content:url("./imgs/reformas.png"); }
+.ss-building:before { content:url("./imgs/construccion.png"); }
+.ss-move:before { content:url("./imgs/mudanzas.png"); }
+.ss-painting:before { content:url("./imgs/pintores.png"); }
+.ss-brickwork:before { content:url("./imgs/constructores.png"); }
+.ss-parquet:before { content:url("./imgs/parquetistas.png"); }
+
+.ss-info {
+  &-step {
+    list-style: none;
+    counter-increment: quotation-step;
+    font-size: $font-size-xxl;
+    min-height: 60px;
+    padding-left: 60px;
+    position: relative;
+    padding-top: 8px;
+  }
+
+  &-step:before {
+    content: counter(quotation-step);
+    position: absolute;
+    left: 0;
+    top: 0;
+    text-align: center;
+    font-size: 30px;
+    width: 50px;
+    line-height: 50px;
+    background-color: #ffffff;
+    border-radius: 100%;
+  }
+
+  &-tips:before {
+    float: left;
+    height: 293px;
+  }
+
+  &-tip {
+    position: relative;
+    font-size: $font-size-l;
+    width: 230px;
+    margin-bottom: 30px;
+    padding-left: 200px;
+    list-style: none;
+  }
+
+  &-tip-title {
+    font-size: $font-size-xl;
+    font-weight: 800;
+  }
+
+  &-tip-icon-1:before {
+    content: "\f02c";
+    font-family: "FontAwesome";
+    color: $hover-color;
+    position: absolute;
+    left: 150px;
+    font-size: 30px;
+  }
+
+  &-tip-icon-2:before {
+    content: "\f017";
+    font-family: "FontAwesome";
+    color: $hover-color;
+    position: absolute;
+    left: 150px;
+    font-size: 30px;
+  }
+
+  &-tip-icon-3:before {
+    content: "\f51e";
+    font-family: "FontAwesome";
+    color: $hover-color;
+    position: absolute;
+    left: 150px;
+    font-size: 30px;
+  }
+
+  &-tip-icon-4:before {
+    content: "\f0a3";
+    font-family: "FontAwesome";
+    color: $hover-color;
+    position: absolute;
+    left: 150px;
+    font-size: 30px;
+  }
+}

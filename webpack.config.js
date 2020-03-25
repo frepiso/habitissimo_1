@@ -1,8 +1,7 @@
 const prodConfig = require('./webpack.config.prod.js');
 const devConfig = require('./webpack.config.dev.js');
+const backConfig = require('./webpack.config.back.js');
 function webpackEnviromentSelector(env) {
-  if (env.production) return prodConfig;
-  if (env.devConfig) return devConfig;
-  return devConfig;
+  return env.production ? prodConfig : devConfig;  
 }
-module.exports = webpackEnviromentSelector;
+module.exports = [webpackEnviromentSelector, backConfig];

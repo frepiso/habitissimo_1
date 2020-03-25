@@ -1,0 +1,24 @@
+/* nav */
+.ss-nav {
+  border-top: 1px solid $background-color;
+}
+
+.ss-nav-menu {
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto auto;
+  padding: 8px 32px;
+}
+
+.ss-nav-menu-item {
+  list-style: none;
+}
+
+.ss-nav-anchor {
+  font-size: $font-size-l;
+  color: $tertiary-color;
+  text-decoration: none;
+}
+
+.ss-nav-anchor:hover {
+  color: $hover-color;
+}

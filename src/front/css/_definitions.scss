@@ -1,0 +1,22 @@
+@font-face {
+  font-family: "AvenirNext";
+  src: url("./fonts/AvenirNextLTPro-Demi.otf") format("truetype");
+}
+
+@font-face {
+    font-family: 'FontAwesome';
+    src: url("./fonts/fa-solid-900.ttf") format("truetype");
+}
+
+$primary-color: #2b2b2b;
+$secondary-color: #ededed;
+$tertiary-color: #404040;
+$hover-color: #ff7300;
+$background-color: #ededed;
+
+$font-size-h1: 48px;
+$font-size-xxl: 18px;
+$font-size-xl: 16px;
+$font-size-l: 14px;
+$font-size-m: 12px;
+$font-size-s: 10px;

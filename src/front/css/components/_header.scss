@@ -1,0 +1,61 @@
+/* header */
+.ss-header {
+  background: #ffffff;
+}
+
+.ss-header-container {
+  min-height: 70px;
+  display: grid;
+  grid-template-columns: 500px 376px auto;
+  padding: 0 90px;
+}
+
+.ss-header-logo {
+  background-image: url("./imgs/web-logo.2x.png");
+  background-repeat: no-repeat;
+  background-size: 250px 35px;
+  background-position: 0 30px;
+}
+.ss-header-logo-text {
+  width: 250px;
+  height: 50px;
+  margin-top: 20px;
+}
+
+.ss-header-msg {
+  font-size: $font-size-xxl;
+  line-height: 1.2;
+  font-weight: 600;
+}
+
+.ss-header-msg:before {
+  content:url("./imgs/small-pro-contacta.svg");
+  float: left;
+  height: 100px;
+}
+
+.ss-header-msg-text {
+  padding-top: 20px;
+}
+
+.ss-header-register {
+  text-align: right;
+  padding-top: 30px;
+}
+
+.ss-header-register-button {
+  font-size: $font-size-xxl;
+  line-height: 1;
+  color: $primary-color;
+  text-decoration: none;
+  background-color: #ffffff;
+  border: 1px solid $background-color;
+  padding: 14px 30px;
+  border-radius: 25px;
+  box-shadow: 1px 3px 3px 0 rgba(0,0,0,.17);
+  white-space: normal;
+}
+
+.ss-header-register-button:hover {
+  background-color: $background-color;
+}

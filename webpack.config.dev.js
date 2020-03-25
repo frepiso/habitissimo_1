@@ -2,17 +2,23 @@ const path = require('path');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const MiniCSSExtract = require('mini-css-extract-plugin');
 const basePath = __dirname;
-const distPath = 'dist';
-const indextInput = './src/index.html';
+const distPath = 'dist/front';
+const indextInput = './src/front/index.html';
 const indexOutput = 'index.html';
-const webpackConfig = {
+const frontConfig = {
+  target: "web",
   mode: 'development',
   devtool: 'inline-source-map',
   resolve: {
     extensions: ['.js', '.ts'],
   },
   entry: {
-    app: ['@babel/polyfill', './src/index.js'],
+    app: ['@babel/polyfill', './src/front/index.js'],
+  },
+  devServer: {
+    contentBase: path.join(__dirname, distPath),
+    compress: true,
+    port: 9000
   },
   output: {
     path: path.join(basePath, distPath),
@@ -29,12 +35,13 @@ const webpackConfig = {
         ],
       },
       {
-        test: /\.css/,
+        test: /\.(sa|sc|c)ss/,
         exclude: /node_modules/,
         use: [
           MiniCSSExtract.loader,
-          { loader: 'css-loader', options: { sourceMap: true } },
-          { loader: 'postcss-loader', options: { sourceMap: true } },
+          { loader: 'css-loader', options: { sourceMap: true, } },
+          { loader: 'postcss-loader', options: { sourceMap: true, } },
+          { loader: 'sass-loader', options: { sourceMap: true,} },
         ],
       },
       {
@@ -42,19 +49,37 @@ const webpackConfig = {
         exclude: /node_modules/,
         use: [
           MiniCSSExtract.loader,
-          { loader: 'css-loader', options: { sourceMap: true } },
-          { loader: 'postcss-loader', options: { sourceMap: true } },
-          { loader: 'less-loader', options: { sourceMap: true } },
+          { loader: 'css-loader', options: { sourceMap: true, } },
+          { loader: 'postcss-loader', options: { sourceMap: true, } },
+          { loader: 'less-loader', options: { sourceMap: true, } },
         ],
       },
       {
-        test: /\.(png|jpg|gif)$/,
+        test: /\.(woff|woff2|otf|eot|ttf)$/,
         use: [
           {
             loader: 'file-loader',
             options: {
-              // outputPath: 'images/',
-              // publicPath: 'images/',
+              sourceMap: true,
+              limit: 1000,
+              name: '[name].[ext]',
+              outputPath: 'assets/css/fonts/',
+              publicPath: 'fonts',
+            },
+          },
+        ],
+      },
+      {
+        test: /\.(png|jpe?g|gif|svg)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              sourceMap: true,
+              limit: 50000,
+              name: '[name].[ext]',
+              outputPath: 'assets/css/imgs/',
+              publicPath: 'imgs',
             },
           },
         ],
@@ -67,9 +92,8 @@ const webpackConfig = {
       template: indextInput,
     }),
     new MiniCSSExtract({
-      filename: '[name].css',
-      chunkFilename: '[id].css',
+      filename: 'assets/css/[name]_[chunkhash].css',
     }),
   ],
 };
-module.exports = webpackConfig;
+module.exports = frontConfig;
