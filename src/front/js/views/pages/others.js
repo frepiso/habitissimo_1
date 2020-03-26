@@ -3,7 +3,7 @@ const Others = {
   render: async () => {
     return `
       <section class="section">
-        <h1> Others </h1>
+        <h1>Others</h1>
       </section>
     `;
   },

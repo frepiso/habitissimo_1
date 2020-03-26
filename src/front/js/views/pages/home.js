@@ -1,7 +1,10 @@
 'use strict';
+import Storage from '../../storage';
 import Title from '../components/title.js';
 import Info from '../components/info.js';
 import Form from '../components/form.js';
+
+const storage = new Storage();
 
 const Home = {
   render: async () => {
@@ -17,7 +20,7 @@ const Home = {
     `;
   },
   after_render: async () => {
-    const page = 'home';
+    const url = storage.getPage();
     const title = null || document.getElementById('title');
     const info = null || document.getElementById('info');
     const form = null || document.getElementById('form');
@@ -25,7 +28,7 @@ const Home = {
     title.innerHTML = await Title.render();
     await Title.after_render();
 
-    info.innerHTML = await Info.render(page);
+    info.innerHTML = await Info.render(url);
     await Info.after_render();
 
     form.innerHTML = await Form.render();

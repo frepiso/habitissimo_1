@@ -1,0 +1,44 @@
+/* step_2 */
+.ss-step2-text1 {
+  grid-area: text1;
+}
+
+.ss-step2-input1 {
+  grid-area: input1;
+}
+
+.ss-step2-text2 {
+  grid-area: text2;
+}
+
+.ss-step2-input2 {
+  grid-area: input2;
+}
+
+.ss-step2-text3 {
+  grid-area: text3;
+}
+
+.ss-step2-input3 {
+  grid-area: input3;
+}
+
+.ss-step2-footer {
+  grid-area: footer;
+  margin: 30px auto;
+}
+
+.ss-step2-wrapper {
+  display: grid;
+  grid-template-areas:
+    'text1'
+    'input1'
+    'text2'
+    'input2'
+    'text3'
+    'input3'
+    'footer';
+  grid-gap: 14px;
+  width:500px;
+  margin: 10px auto;
+}

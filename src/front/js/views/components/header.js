@@ -26,8 +26,8 @@ const Header = {
     `;
   },
   after_render: async () => {
-    const nav = null || document.getElementById('nav_container');
-    nav.innerHTML = await Navbar.render();
+    const container = null || document.getElementById('nav_container');
+    container.innerHTML = await Navbar.render();
     await Navbar.after_render();
   },
 };

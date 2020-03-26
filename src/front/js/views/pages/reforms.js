@@ -1,10 +1,8 @@
 'use strict';
 import CustomPage from './custom_page';
-const model = {
-  page: 'reforms',
-  keys: {
-    title: 'Pide presupuestos de reformas viviendas',
-  },
+
+const keys = {
+  title: 'Pide presupuestos de reformas viviendas',
 };
 
 const Reforms = {
@@ -12,7 +10,7 @@ const Reforms = {
     return CustomPage.render();
   },
   after_render: async () => {
-    return CustomPage.after_render(model);
+    return CustomPage.after_render(keys);
   },
 };
 

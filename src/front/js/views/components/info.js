@@ -1,4 +1,8 @@
 'use strict';
+import Storage from '../../storage';
+
+const storage = new Storage();
+
 const keys = {
   'step_1': 'Cuéntanos <b>qué necesitas</b>',
   'step_2': 'Recibe hasta <b>4 presupuestos de tu zona</b>',
@@ -14,7 +18,8 @@ const keys = {
 };
 
 const Info = {
-  render: async (page) => {
+  render: async () => {
+    const page = storage.page || 'home';
     return `
       <section>
         <ol class="ss-info-steps">

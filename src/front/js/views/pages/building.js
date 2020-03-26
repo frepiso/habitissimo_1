@@ -1,10 +1,7 @@
 'use strict';
 import CustomPage from './custom_page';
-const model = {
-  page: 'building',
-  keys: {
-    title: 'Pide presupuestos de construcción de casas',
-  },
+const keys = {
+  title: 'Pide presupuestos de construcción de casas',
 };
 
 const Building = {
@@ -12,7 +9,7 @@ const Building = {
     return CustomPage.render();
   },
   after_render: async () => {
-    return CustomPage.after_render(model);
+    return CustomPage.after_render(keys);
   },
 };
 

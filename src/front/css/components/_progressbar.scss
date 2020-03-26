@@ -1,0 +1,25 @@
+/* progress-bar */
+.ss-progress-bar-wrapper {
+  width: 500px;
+  margin: 20px auto;
+  text-align: center;
+}
+
+.ss-progress-bar {
+	width: 100%;
+	background-color: $background-color;
+	border-radius: 7px;	
+}
+
+.ss-progress-bar-fill {
+	display: block;
+	height: 14px;
+	background-color: $hover-color;
+	border-radius: 7px;
+	transition: width 500ms ease-in-out;
+
+  &[data-step="0"] {width: 25%}
+  &[data-step="1"] {width: 50%}
+  &[data-step="2"] {width: 75%}
+  &[data-step="3"] {width: 100%}
+}

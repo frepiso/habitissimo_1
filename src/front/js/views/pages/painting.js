@@ -1,10 +1,8 @@
 'use strict';
 import CustomPage from './custom_page';
-const model = {
-  page: 'painting',
-  keys: {
-    title: 'Pide presupuestos de pintores',
-  },
+
+const keys = {
+  title: 'Pide presupuestos de pintores',
 };
 
 const Painting = {
@@ -12,7 +10,7 @@ const Painting = {
     return CustomPage.render();
   },
   after_render: async () => {
-    return CustomPage.after_render(model);
+    return CustomPage.after_render(keys);
   },
 };
 

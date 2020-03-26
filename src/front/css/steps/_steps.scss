@@ -1,0 +1,29 @@
+/* steps */
+.ss-input {
+  border: 1px solid $tertiary-light-color;
+  border-radius: 5px;
+  height: 30px;
+  padding: 5px;
+  width: 100%;
+}
+
+.ss-select {
+  border: 1px solid $tertiary-light-color;
+  border-radius: 5px;
+  height: 30px;
+  padding: 5px;
+  width: 100%;
+  background: $light-color;
+}
+
+.ss-textarea {
+  border: 1px solid $tertiary-light-color;
+  border-radius: 5px;
+  padding: 5px;
+  width: 100%;
+}
+
+.ss-form-text {
+  font-family: "AvenirNextSemi";
+  font-size: $font-size-h4;
+}

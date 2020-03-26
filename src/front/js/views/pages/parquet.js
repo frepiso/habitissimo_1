@@ -1,10 +1,8 @@
 'use strict';
 import CustomPage from './custom_page';
-const model = {
-  page: 'parquet',
-  keys: {
-    title: 'Pide presupuestos de parquetistas',
-  },
+
+const keys = {
+  title: 'Pide presupuestos de parquetistas',
 };
 
 const Parquet = {
@@ -12,7 +10,7 @@ const Parquet = {
     return CustomPage.render();
   },
   after_render: async () => {
-    return CustomPage.after_render(model);
+    return CustomPage.after_render(keys);
   },
 };
 

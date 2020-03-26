@@ -1,11 +1,11 @@
 /* info */
 .ss-home:before { content:url("./imgs/generic.png"); }
-.ss-reforms:before { content:url("./imgs/reformas.png"); }
-.ss-building:before { content:url("./imgs/construccion.png"); }
-.ss-move:before { content:url("./imgs/mudanzas.png"); }
-.ss-painting:before { content:url("./imgs/pintores.png"); }
-.ss-brickwork:before { content:url("./imgs/constructores.png"); }
-.ss-parquet:before { content:url("./imgs/parquetistas.png"); }
+.ss-reformas:before { content:url("./imgs/reformas.png"); }
+.ss-construccion:before { content:url("./imgs/construccion.png"); }
+.ss-mudanza:before { content:url("./imgs/mudanzas.png"); }
+.ss-pintura:before { content:url("./imgs/pintores.png"); }
+.ss-obra:before { content:url("./imgs/constructores.png"); }
+.ss-parque:before { content:url("./imgs/parquetistas.png"); }
 
 .ss-info {
   &-step {
@@ -27,7 +27,7 @@
     font-size: 30px;
     width: 50px;
     line-height: 50px;
-    background-color: #ffffff;
+    background-color: $light-color;
     border-radius: 100%;
   }
 

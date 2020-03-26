@@ -1,6 +1,6 @@
 /* header */
 .ss-header {
-  background: #ffffff;
+  background: $light-color;
 }
 
 .ss-header-container {
@@ -48,7 +48,7 @@
   line-height: 1;
   color: $primary-color;
   text-decoration: none;
-  background-color: #ffffff;
+  background-color: $light-color;
   border: 1px solid $background-color;
   padding: 14px 30px;
   border-radius: 25px;

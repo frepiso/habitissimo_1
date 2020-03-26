@@ -1,0 +1,51 @@
+/* step_1 */
+
+.ss-step1-text1 {
+  grid-area: text1;  
+}
+
+.ss-step1-input1 {
+  grid-area: input1;
+}
+
+.ss-step1-text2 {
+  grid-area: text2;
+}
+
+.ss-step1-input2 {
+  grid-area: input2;
+}
+
+.ss-step1-footer {
+  grid-area: footer;
+  margin: 30px auto;
+}
+
+.ss-step1-wrapper {
+  display: grid;
+  grid-template-areas:
+    'text1'
+    'input1'
+    'text2'
+    'input2'
+    'footer';
+  grid-gap: 14px;
+  width:500px;
+  margin: 10px auto;
+}
+
+.ss-step1-button {
+  font-size: $font-size-xxl;
+  line-height: 1;
+  color: $light-color;
+  text-decoration: none;
+  background-color: $hover-color;
+  padding: 14px 30px;
+  border-radius: 25px;
+  box-shadow: 1px 3px 3px 0 rgba(0,0,0,.17);
+  white-space: normal;
+}
+
+.ss-step1-button:hover {
+  background-color: $hover-color-dark;
+}

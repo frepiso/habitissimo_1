@@ -5,6 +5,7 @@ const basePath = __dirname;
 const distPath = 'dist/front';
 const indextInput = './src/front/index.html';
 const indexOutput = 'index.html';
+const assetsOutput = 'assets/css/';
 const frontConfig = {
   target: "web",
   mode: 'development',
@@ -15,14 +16,14 @@ const frontConfig = {
   entry: {
     app: ['@babel/polyfill', './src/front/index.js'],
   },
-  devServer: {
-    contentBase: path.join(__dirname, distPath),
-    compress: true,
-    port: 9000
-  },
   output: {
     path: path.join(basePath, distPath),
     filename: '[name]_[chunkhash].js',
+  },
+  devServer: {
+    contentBase: path.join(basePath, distPath),
+    compress: true,
+    port: 9000
   },
   module: {
     rules: [
@@ -63,7 +64,7 @@ const frontConfig = {
               sourceMap: true,
               limit: 1000,
               name: '[name].[ext]',
-              outputPath: 'assets/css/fonts/',
+              outputPath: assetsOutput.concat('fonts'),
               publicPath: 'fonts',
             },
           },
@@ -78,7 +79,7 @@ const frontConfig = {
               sourceMap: true,
               limit: 50000,
               name: '[name].[ext]',
-              outputPath: 'assets/css/imgs/',
+              outputPath: assetsOutput.concat('imgs'),
               publicPath: 'imgs',
             },
           },
@@ -92,7 +93,7 @@ const frontConfig = {
       template: indextInput,
     }),
     new MiniCSSExtract({
-      filename: 'assets/css/[name]_[chunkhash].css',
+      filename: assetsOutput.concat('[name]_[chunkhash].css'),
     }),
   ],
 };

@@ -1,0 +1,37 @@
+/* _advertisement */
+.ss-advertisements {
+  display: grid;
+  grid-template-columns: 180px 30px 30px 30px 30px;
+  margin: auto;
+  width: 300px;
+}
+
+.ss-advertisement {
+  list-style: none;
+}
+.ss-adv-text {
+  font-size: $font-size-h4;
+  margin-top: 5px
+}
+
+.ss-adv-icon {
+  height: 29px;
+  width: 25px;
+  display: block;
+}
+
+.ss-adv-icon-1 {
+  background: url('./imgs/seen-on-tv.png') 112px 0;
+}
+
+.ss-adv-icon-2 {
+  background: url('./imgs/seen-on-tv.png') 84px 0;
+}
+
+.ss-adv-icon-3 {
+  background: url('./imgs/seen-on-tv.png') 55px 0;
+}
+
+.ss-adv-icon-4 {
+  background: url('./imgs/seen-on-tv.png') 26px 0;
+}

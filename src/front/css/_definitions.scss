@@ -1,6 +1,11 @@
 @font-face {
-  font-family: "AvenirNext";
+  font-family: "AvenirNextSemi";
   src: url("./fonts/AvenirNextLTPro-Demi.otf") format("truetype");
+}
+
+@font-face {
+  font-family: "AvenirNext";
+  src: url("./fonts/AvenirNextLTPro-Regular.otf") format("truetype");
 }
 
 @font-face {
@@ -8,13 +13,17 @@
     src: url("./fonts/fa-solid-900.ttf") format("truetype");
 }
 
+$light-color: #ffffff;
 $primary-color: #2b2b2b;
 $secondary-color: #ededed;
 $tertiary-color: #404040;
+$tertiary-light-color: #979797;
 $hover-color: #ff7300;
+$hover-color-dark: #de6501;
 $background-color: #ededed;
 
 $font-size-h1: 48px;
+$font-size-h4: 21px;
 $font-size-xxl: 18px;
 $font-size-xl: 16px;
 $font-size-l: 14px;

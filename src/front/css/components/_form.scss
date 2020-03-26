@@ -1,1 +1,39 @@
 /* form */
+.ss-budget-form-title {
+  grid-area: title;
+  font-family: "AvenirNextSemi";
+  font-size: $font-size-h4;
+  background-color: $tertiary-color;
+  color: $light-color;
+  padding:12px 38px;
+}
+
+.ss-budget-form-subtitle {
+  grid-area: subtitle;
+  font-family: "AvenirNext";
+  font-size: $font-size-h4;
+  background-color: $hover-color;
+  color:$light-color;
+  padding-top:12px;
+  text-align: center;
+}
+
+.ss-budget-form-content {
+  grid-area: content;
+  height: 420px;
+  background-color: $light-color;
+}
+
+.ss-budgets-form {
+  display: grid;
+  grid-template-areas:
+    'title title title subtitle'
+    'content content content content';
+  width: 654px;
+  border: 1px solid $tertiary-light-color;
+}
+
+.ss-budget-advertisement {
+  width: 654px;
+  padding: 20px;
+}

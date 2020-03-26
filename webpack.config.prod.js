@@ -6,6 +6,7 @@ const basePath = __dirname;
 const distPath = 'dist/front';
 const indextInput = './src/index.html';
 const indexOutput = 'index.html';
+const assetsOutput = 'assets/css/';
 const frontConfig = {
   target: "web",
   mode: 'production',
@@ -64,7 +65,7 @@ const frontConfig = {
               sourceMap: true,
               limit: 1000,
               name: '[name].[ext]',
-              outputPath: 'assets/css/fonts/',
+              outputPath: assetsOutput.concat('fonts'),
               publicPath: 'fonts',
             },
           },
@@ -79,7 +80,7 @@ const frontConfig = {
               sourceMap: true,
               limit: 50000,
               name: '[name].[ext]',
-              outputPath: 'assets/css/imgs/',
+              outputPath: assetsOutput.concat('imgs'),
               publicPath: 'imgs',
             },
           },
@@ -93,7 +94,7 @@ const frontConfig = {
       template: indextInput,
     }),
     new MiniCSSExtract({
-      filename: 'assets/css/[name]_[chunkhash].css',
+      filename: assetsOutput.concat('[name]_[chunkhash].css'),
     }),
     new OptimizeCssAssetsPlugin(),
   ],
