@@ -1,5 +1,6 @@
 'use strict';
-import Storage from '../../storage';
+import Storage from '../../Storage';
+import Utils from '../../lib/utils';
 // form views
 import Step1 from '../steps/step_1';
 import Step2 from '../steps/step_2';
@@ -16,10 +17,10 @@ const keys = {
 };
 
 const steps = {
-  '0': {step: Step1, next: '1',},
-  '1': {step: Step2, next: '2',},
-  '2': {step: Step3, next: '3',},
-  '3': {step: Step4, next: '4',},
+  '0': {step: Step1, next: '1', prev: '0'},
+  '1': {step: Step2, next: '2', prev: '0'},
+  '2': {step: Step3, next: '3', prev: '1'},
+  '3': {step: Step4, next: '4', prev: '2'},
 };
 
 const Form = {
@@ -56,11 +57,14 @@ const Form = {
     const container = null || document.getElementById('form-container');
     const step = !storage.getStep() ? '0' : storage.getStep();
     const content = steps[step].step ? steps[step].step : Error404;
-    const nextStep = steps[step].next ? steps[step].next : 'steps[0].next]';
+    const nextStep = steps[step].next ? steps[step].next : steps[0].next;
+    const prevStep = steps[step].prev ? steps[step].prev : steps[0].prev;
 
     storage.setNext(nextStep);
+    storage.setPrev(prevStep);
+    Utils.saveStorage(storage);
+
     progressbar.dataset.step = step;
-    
     container.innerHTML = await content.render();
     await content.after_render();
   },

@@ -1,5 +1,5 @@
 'use strict';
-import Storage from '../../storage';
+import Storage from '../../Storage';
 import Title from '../components/title.js';
 import Info from '../components/info.js';
 import Form from '../components/form.js';

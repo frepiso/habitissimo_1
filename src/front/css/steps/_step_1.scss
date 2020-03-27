@@ -1,7 +1,7 @@
 /* step_1 */
 
 .ss-step1-text1 {
-  grid-area: text1;  
+  grid-area: text1;
 }
 
 .ss-step1-input1 {
@@ -19,6 +19,7 @@
 .ss-step1-footer {
   grid-area: footer;
   margin: 30px auto;
+  text-align: center;
 }
 
 .ss-step1-wrapper {
@@ -32,20 +33,4 @@
   grid-gap: 14px;
   width:500px;
   margin: 10px auto;
-}
-
-.ss-step1-button {
-  font-size: $font-size-xxl;
-  line-height: 1;
-  color: $light-color;
-  text-decoration: none;
-  background-color: $hover-color;
-  padding: 14px 30px;
-  border-radius: 25px;
-  box-shadow: 1px 3px 3px 0 rgba(0,0,0,.17);
-  white-space: normal;
-}
-
-.ss-step1-button:hover {
-  background-color: $hover-color-dark;
 }

@@ -1,6 +1,6 @@
 'use strict';
 import Utils from '../../lib/utils';
-import Storage from '../../storage';
+import Storage from '../../Storage';
 
 const storage = new Storage();
 
@@ -13,6 +13,7 @@ const keys = {
   date_2: 'de 1 a 3 meses',
   date_3: 'más de 3 meses',
   continue_button: 'Continuar »',
+  free_text: 'gratis y sin compromiso',
 };
 
 const Step1 = {
@@ -24,7 +25,9 @@ const Step1 = {
             ${keys.description_text}
           </div>
           <div class="ss-step1-input1">
-            <textarea id="description" name="description" class="ss-textarea" rows="6" cols="50" placeholder="${keys.description_placeholder}"></textarea>
+            <textarea id="description" name="description"
+              class="ss-textarea" rows="6" cols="50" placeholder="${keys.description_placeholder}">
+            </textarea>
           </div>
           <div class="ss-step1-text2 ss-form-text">
             ${keys.date_text}
@@ -38,14 +41,16 @@ const Step1 = {
             <select>
           </div>
           <div class="ss-step1-footer">
-            <a id="submit_btn" class="ss-step1-button" href="/">${keys.continue_button}</a>
+            <a id="submit_btn" class="ss-step-button" href="/">${keys.continue_button}</a>
+            <div class="ss-step-free">
+              ${keys.free_text}
+            </div>
           </div>
         <div>
       </section>
     `;
   },
   after_render: async () => {
-    const next = Utils.createURL(storage.getPage(), storage.getNext());
     const description = document.getElementById('description');
     const date = document.getElementById('date');
 
@@ -54,11 +59,12 @@ const Step1 = {
 
     document.getElementById('submit_btn').addEventListener('click', (e) => {
       e.preventDefault();
-      //todo
+      const url = Utils.createURL(storage.getPage(), storage.getNext());
+      // todo
       if (description.value !== '') {
         storage.setBudgetValue('description', description.value);
-        storage.setBudgetValue('date', date.value);
-        Utils.goto(next);
+        storage.setBudgetValue('date', date.value);        
+        Utils.goto(url);
       }
     });
   },

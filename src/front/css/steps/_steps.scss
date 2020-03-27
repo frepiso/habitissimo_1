@@ -2,7 +2,7 @@
 .ss-input {
   border: 1px solid $tertiary-light-color;
   border-radius: 5px;
-  height: 30px;
+  height: 18px;
   padding: 5px;
   width: 100%;
 }
@@ -26,4 +26,34 @@
 .ss-form-text {
   font-family: "AvenirNextSemi";
   font-size: $font-size-h4;
+}
+
+.ss-step-button {
+  font-size: $font-size-xxl;
+  line-height: 1;
+  color: $light-color;
+  text-decoration: none;
+  background-color: $hover-color;
+  padding: 14px 30px;
+  border-radius: 25px;
+  box-shadow: 1px 3px 3px 0 rgba(0,0,0,.17);
+  white-space: normal;
+}
+
+.ss-step-button:hover {
+  background-color: $hover-color-dark;
+}
+
+.ss-step-backbutton {
+  position: absolute;
+  left: -110px;
+  cursor: pointer;
+}
+
+.ss-step-free {
+  font-family: "AvenirNextSemi";
+  font-size: $font-size-h4;
+  color: $validation-color;
+  text-align: center;
+  margin: 20px;
 }

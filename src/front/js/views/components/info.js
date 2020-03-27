@@ -1,5 +1,5 @@
 'use strict';
-import Storage from '../../storage';
+import Storage from '../../Storage';
 
 const storage = new Storage();
 
@@ -19,7 +19,7 @@ const keys = {
 
 const Info = {
   render: async () => {
-    const page = storage.page || 'home';
+    const page = storage.getPage();
     return `
       <section>
         <ol class="ss-info-steps">

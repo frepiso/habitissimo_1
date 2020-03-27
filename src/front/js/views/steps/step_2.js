@@ -1,6 +1,6 @@
 'use strict';
 import Utils from '../../lib/utils';
-import Storage from '../../storage';
+import Storage from '../../Storage';
 
 const storage = new Storage();
 
@@ -13,6 +13,7 @@ const keys = {
   preference_placeholder: '',
   continue_button: 'Continuar »',
   back_button: '« Volver',
+  free_text: 'gratis y sin compromiso',
 };
 
 const Step2 = {
@@ -43,14 +44,19 @@ const Step2 = {
             <select>
           </div>
           <div class="ss-step2-footer">
-            <a id="submit_btn" class="ss-step1-button" href="/">${keys.continue_button}</a>
+            <div class="ss-step-backbutton">
+              <a id="back_button" class="ss-step-back-button">${keys.back_button}</a>
+            </div>
+            <a id="submit_btn" class="ss-step-button" href="/">${keys.continue_button}</a>
+            <div class="ss-step-free">
+              ${keys.free_text}
+            </div>
           </div>
         <div>
       </section>
     `;
   },
   after_render: async () => {
-    const next = Utils.createURL(storage.getPage(), storage.getNext());
     const category = document.getElementById('category');
     const subcategory = document.getElementById('subcategory');
     const preference = document.getElementById('preference');
@@ -59,11 +65,20 @@ const Step2 = {
     subcategory.value = storage.getBudgetValue('subcategory');
     preference.value = storage.getBudgetValue('preference');
 
+    document.getElementById('back_button').addEventListener('click', (e) => {
+      e.preventDefault();
+      const url = Utils.createURL(storage.getPage(), storage.getPrev());
+      console.log('click_prev', JSON.stringify(storage));
+      Utils.goto(url);
+    });
+
     document.getElementById('submit_btn').addEventListener('click', (e) => {
       e.preventDefault();
-      //todo
-      console.log('click2', JSON.stringify(storage));
-      Utils.goto(next);
+      const url = Utils.createURL(storage.getPage(), storage.getNext());
+      // todo
+      console.log('click_next', JSON.stringify(storage));
+      Utils.saveStorage(storage);
+      Utils.goto(url);
     });
   },
 };

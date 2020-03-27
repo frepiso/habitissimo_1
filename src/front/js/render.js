@@ -1,5 +1,5 @@
 'use strict';
-import Storage from './storage';
+import Storage from './Storage';
 // components views
 import Header from './views/components/header';
 import Footer from './views/components/footer';
@@ -43,7 +43,9 @@ const Render = {
 
     content.innerHTML = await page.render();
     await page.after_render();
-  }
+  },
+  after_render: async () => {
+  },
 };
 
 export default Render;

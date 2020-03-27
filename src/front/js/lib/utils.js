@@ -13,7 +13,7 @@ const Utils = {
     };
   },
   createURL: (page, step) => {
-    return '/#/' + page + '/' + step; 
+    return '/#/' + page + '/' + step;
   },
   sleep: (ms) => {
     return new Promise((resolve) => setTimeout(resolve, ms));
@@ -26,7 +26,10 @@ const Utils = {
     return nextMonth.toLocaleDateString(locale);
   },
   goto: (url) => {
-     window.location = url;
+    window.location = url;
+  },
+  saveStorage: (storage) => {
+    localStorage.setItem('HabittisimoStorage', JSON.stringify({router: storage.getRouter(), budget: storage.getBudget(),}));
   },
 };
 
