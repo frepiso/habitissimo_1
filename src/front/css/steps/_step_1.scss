@@ -1,4 +1,7 @@
 /* step_1 */
+.ss-step1-text0 {
+  grid-area: text0;
+}
 
 .ss-step1-text1 {
   grid-area: text1;
@@ -16,21 +19,17 @@
   grid-area: input2;
 }
 
-.ss-step1-footer {
-  grid-area: footer;
-  margin: 30px auto;
-  text-align: center;
-}
-
 .ss-step1-wrapper {
   display: grid;
   grid-template-areas:
+    'text0'
+    'input0'
     'text1'
     'input1'
     'text2'
     'input2'
     'footer';
-  grid-gap: 14px;
+  grid-gap: 8px;
   width:500px;
   margin: 10px auto;
 }

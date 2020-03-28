@@ -1,1 +1,40 @@
 /* step_4 */
+.ss-step4-container {
+  grid-area: container;
+  text-align: center;
+  font-family: "AvenirNextSemi";
+  margin: 100px;
+
+  &-loading {
+    display: block;
+  }
+
+  &-ok {
+    font-size: 34px;
+    color: $validation-color;
+    display: none;
+  }
+
+  &-ko {
+    font-size: $font-size-h4;
+    color: $error-color;
+    display: none;
+  }
+}
+
+.ss-step4-wrapper {
+  display: grid;
+  grid-template-areas:
+    'container'
+    'footer';
+  grid-gap: 14px;
+  width:500px;
+  margin: 10px auto;
+}
+
+.ss-step-retry-button:before {
+  content: "\f382";
+  font-family: "FontAwesome";
+  color: $hover-color;
+  padding-right: 5px;
+}

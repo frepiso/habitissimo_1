@@ -6,7 +6,7 @@ import Form from '../components/form.js';
 const CustomPage = {
   render: async () => {
     return `
-      <section id="title" class="ss-section-title">
+      <section id="heading" class="ss-section-title">
       </section>
       <div class="ss-grid-content-wrapper">
         <section id="info" class="ss-section-info">
@@ -17,11 +17,11 @@ const CustomPage = {
     `;
   },
   after_render: async (keys) => {
-    const title = null || document.getElementById('title');
+    const heading = null || document.getElementById('heading');
     const info = null || document.getElementById('info');
     const form = null || document.getElementById('form');
 
-    title.innerHTML = await TitleCustom.render(keys);
+    heading.innerHTML = await TitleCustom.render(keys);
     await TitleCustom.after_render();
 
     info.innerHTML = await Info.render();

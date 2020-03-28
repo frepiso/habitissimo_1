@@ -9,6 +9,7 @@ class BudgetStorage {
    */
   constructor() {
     this.budget = {
+      title: '',
       description: '',
       date: '',
       category: '',
@@ -17,6 +18,7 @@ class BudgetStorage {
       name: '',
       email: '',
       phone: '',
+      address: '',
     };
   }
 
@@ -64,6 +66,7 @@ class BudgetStorage {
         this.budget[key] = '';
       }
     }
+    localStorage.clear();
   }
 }
 

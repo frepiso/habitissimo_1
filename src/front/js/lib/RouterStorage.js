@@ -93,6 +93,19 @@ class RouterStorage {
   getPrev() {
     return this.router.prev;
   }
+
+  /**
+  * clearRouter
+  * clear values of the budget
+  */
+  clearRouter() {
+    this.router = {
+      page: 'home',
+      step: '0',
+      next: '1',
+      prev: '1',
+    };
+  }
 }
 
 export default RouterStorage;

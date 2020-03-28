@@ -28,6 +28,13 @@
   font-size: $font-size-h4;
 }
 
+.ss-step-footer {
+  grid-area: footer;
+  margin: 30px auto;
+  text-align: center;
+  position: relative;
+}
+
 .ss-step-button {
   font-size: $font-size-xxl;
   line-height: 1;
@@ -50,10 +57,49 @@
   cursor: pointer;
 }
 
+.ss-step-resetbutton {
+  position: absolute;
+  top: 0;
+  right: -110px;
+}
+
+.ss-step-reset-button:before {
+  content: "\f2ed";
+  font-family: "FontAwesome";
+  color: $hover-color;
+  padding-right: 5px;
+}
+
+.ss-step-newbutton {
+  position: absolute;
+  top: 0;
+  right: -110px;
+}
+
+.ss-step-back-button,
+.ss-step-reset-button,
+.ss-step-new-button,
+.ss-step-retry-button {
+  color: $primary-color;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.ss-step-new-button:before {
+  content: "\f0c5";
+  font-family: "FontAwesome";
+  color: $hover-color;
+  padding-right: 5px;
+}
+
 .ss-step-free {
   font-family: "AvenirNextSemi";
   font-size: $font-size-h4;
   color: $validation-color;
   text-align: center;
   margin: 20px;
+}
+
+.ss-error {
+  border:1px solid $error-color; 
 }

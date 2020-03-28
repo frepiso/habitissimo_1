@@ -9,7 +9,7 @@ const storage = new Storage();
 const Home = {
   render: async () => {
     return `
-      <section id="title" class="ss-section-title">
+      <section id="heading" class="ss-section-title">
       </section>
       <div class="ss-grid-content-wrapper">
         <section id="info" class="ss-section-info">
@@ -21,11 +21,11 @@ const Home = {
   },
   after_render: async () => {
     const url = storage.getPage();
-    const title = null || document.getElementById('title');
+    const heading = null || document.getElementById('heading');
     const info = null || document.getElementById('info');
     const form = null || document.getElementById('form');
 
-    title.innerHTML = await Title.render();
+    heading.innerHTML = await Title.render();
     await Title.after_render();
 
     info.innerHTML = await Info.render(url);

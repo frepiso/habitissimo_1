@@ -1,4 +1,5 @@
 'use strict';
+import Config from '../config/app.config';
 
 const Utils = {
   requestURL: () => {
@@ -9,7 +10,6 @@ const Utils = {
     return {
       resource: r[1],
       id: r[2],
-      verb: r[3],
     };
   },
   createURL: (page, step) => {
@@ -29,7 +29,76 @@ const Utils = {
     window.location = url;
   },
   saveStorage: (storage) => {
-    localStorage.setItem('HabittisimoStorage', JSON.stringify({router: storage.getRouter(), budget: storage.getBudget()}));
+    localStorage.setItem(Config.storage_name, JSON.stringify({router: storage.getRouter(), budget: storage.getBudget()}));
+  },
+  getData: async (req, url) => {
+    const options = {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'text/plain',
+      },
+    };
+    try {
+      const response = await fetch(url + req, options);
+      const json = await response.json();
+      return json;
+    } catch (err) {
+      console.log('Error getting data server', err);
+    }
+  },
+  postData: async (req, url) => {
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(req),
+    };
+    try {
+      const response = await fetch(url, options);
+      const json = await response.json();
+      return json;
+    } catch (err) {
+      console.log('Error getting data server', err);
+    }
+  },
+  toggle: ($el) => {
+    $el.style.display = window.getComputedStyle($el).display === 'block' ? 'none' : 'block';
+  },
+  toogleClass: ($el, _class) => {
+    if ($el.classList.contains(_class)) {
+      $el.classList.remove(_class);
+    } else {
+      $el.classList.add(_class);
+    }
+  },
+  removeClass: (el, _class) => {
+    if (el.target.classList.contains(_class)) {
+      el.target.classList.remove(_class);
+    }
+  },
+  validation: ($el) => {
+    const rules = {
+      required: (value) => {
+        return value !== '';
+      },
+      phone: (value) => {
+        return value.match(/(\+34|0034|34)?[ -]*(6|7)[ -]*([0-9][ -]*){8}/);
+      },
+      email: (value) => {
+        return value.match(/\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})/);
+      },
+    };
+    const errors = [];
+    const attr = $el.dataset.validation;
+    const toValidate = attr ? attr.split(' ') : '';
+    toValidate.forEach((rule, idx) => {
+      if (!rules[rule]($el.value)) {
+        errors.push('Invalid rule ' + rule + ' on ' + $el.name);
+      }
+    });
+    console.log('errors', errors);
+    return !errors.length;
   },
 };
 

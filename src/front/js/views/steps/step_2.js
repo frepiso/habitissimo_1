@@ -1,4 +1,5 @@
 'use strict';
+import Config from '../../config/app.config';
 import Utils from '../../lib/utils';
 import Storage from '../../Storage';
 
@@ -16,6 +17,7 @@ const keys = {
   preference_quality: 'Mejor calidad',
   continue_button: 'Continuar »',
   back_button: '« Volver',
+  reset_button: 'Reset',
   free_text: 'gratis y sin compromiso',
   category_reforms: 'Reformas',
   category_building: 'Construcción',
@@ -24,31 +26,17 @@ const keys = {
   category_brickwork: 'Obra menor',
 };
 
-const fetchData = async (id) => {
-  const options = {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'text/plain',
-    },
-  };
-  try {
-    const response = await fetch(`http://localhost:3000/categories/` + id, options);
-    const json = await response.json();
-    return json;
-  } catch (err) {
-    console.log('Error getting data server', err);
-  }
-};
-
 const updateOptions = async (category) => {
-  let optionsViews = '';
+  let $optionsViews = '';
   if (category) {
-    const options = await fetchData(category);
-    optionsViews = options.map((option) => {
-      return `<option value="${option.id}">${option.value}</option>`;
-    }).join('\n ');
+    const options = await Utils.getData(category, Config.endpoint_categories);
+    if (options) {
+      $optionsViews = options.map((option) => {
+        return `<option value="${option.id}">${option.value}</option>`;
+      }).join('\n ');
+    }
   }
-  Step2.render_options(optionsViews);
+  Step2.after_request($optionsViews);
 };
 
 const Step2 = {
@@ -60,7 +48,7 @@ const Step2 = {
             ${keys.category_text}
           </div>
           <div class="ss-step1-input1">
-            <select id="category" name="subcategory" type="text" class="ss-select">
+            <select id="category" name="subcategory" type="text" class="ss-select" data-validation="required">
               <option value="" selected>${keys.category_placeholder}</option>
               <option value="reforms">${keys.category_reforms}</option>
               <option value="building">${keys.category_building}</option>
@@ -87,11 +75,14 @@ const Step2 = {
               <option value="3">${keys.preference_quality}</option>
             <select>
           </div>
-          <div class="ss-step2-footer">
+          <div class="ss-step-footer">
             <div class="ss-step-backbutton">
-              <a id="back_button" class="ss-step-back-button">${keys.back_button}</a>
+              <a id="back_button" class="ss-step-back-button" href="/">${keys.back_button}</a>
             </div>
             <a id="submit_btn" class="ss-step-button" href="/">${keys.continue_button}</a>
+            <div class="ss-step-resetbutton">
+              <a id="reset_button" class="ss-step-reset-button" href="/">${keys.reset_button}</a>
+            </div>
             <div class="ss-step-free">
               ${keys.free_text}
             </div>
@@ -106,13 +97,18 @@ const Step2 = {
     const $preference = document.getElementById('preference');
     const $submitBtn = document.getElementById('submit_btn');
     const $backBtn = document.getElementById('back_button');
+    const $resetBtn = document.getElementById('reset_button');
     const saveData = () => {
-      storage.setBudgetValue('category', $category.value);
       storage.setBudgetValue('subcategory', $subcategory.value);
       storage.setBudgetValue('preference', $preference.value);
+      if (Utils.validation($category)) {
+        storage.setBudgetValue('category', $category.value);
+        return true;
+      } else {
+        $category.classList.add('ss-error');
+        return false;
+      }
     };
-
-    console.log(storage.getBudget());
 
     $category.addEventListener('change', (e) => {
       updateOptions($category.value);
@@ -121,19 +117,29 @@ const Step2 = {
     $backBtn.addEventListener('click', (e) => {
       e.preventDefault();
       const url = Utils.createURL(storage.getPage(), storage.getPrev());
-      // todo if validation
       saveData();
-      // end if
       Utils.goto(url);
     });
 
     $submitBtn.addEventListener('click', (e) => {
       e.preventDefault();
       const url = Utils.createURL(storage.getPage(), storage.getNext());
-      // todo if validation
-      saveData();
+      if (saveData()) {
+        Utils.goto(url);
+      }
+    });
+
+    $resetBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const page = storage.getPage();
+      storage.clearBudget();
+      storage.clearRouter();
+      const url = Utils.createURL(page, storage.getStep());
       Utils.goto(url);
-      // end if
+    });
+
+    $category.addEventListener('focus', (el) => {
+      Utils.removeClass(el, 'ss-error');
     });
 
     $category.value = storage.getBudgetValue('category');
@@ -142,7 +148,7 @@ const Step2 = {
       updateOptions($category.value);
     }
   },
-  render_options: async ($options) => {
+  after_request: async ($options) => {
     const $subcategory = document.getElementById('subcategory');
     const $defaulValue = `<option value="" selected>${keys.subcategory_placeholder}</option>`;
     $subcategory.innerHTML = $defaulValue + $options;

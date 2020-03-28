@@ -1,5 +1,6 @@
 'use strict';
 import './css/app.scss';
+import Config from './js/config/app.config';
 import Storage from './js/Storage.js';
 import Router from './js/router.js';
 
@@ -11,9 +12,8 @@ const bindEvents = () => {
 };
 
 const retriveLocalStorage = () => {
-  const retrievedObject = localStorage.getItem('HabittisimoStorage');
+  const retrievedObject = localStorage.getItem(Config.storage_name);
   if (retrievedObject) {
-    console.log('retrievedObject: ', JSON.parse(retrievedObject));
     const parseRetriveObject = JSON.parse(retrievedObject);
     storage.setRouter(parseRetriveObject.router);
     storage.setBudget(parseRetriveObject.budget);
