@@ -16,6 +16,31 @@ const keys = {
   free_text: 'gratis y sin compromiso',
 };
 
+const fetchData = async (id) => {
+  const options = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'text/plain',
+    },
+  };
+  try {
+    const response = await fetch(`http://localhost:3000/validator/` + id, options);
+    const json = await response.json();
+    return json;
+  } catch (err) {
+    console.log('Error getting data server', err);
+  }
+};
+
+const isValidEmail = async (email) => {
+  const isValid = await fetchData(email);
+  if (isValid) {
+    storage.setBudgetValue('email', email);
+  } else {
+    // show Error
+  }
+};
+
 const Step3 = {
   render: async () => {
     return `
@@ -53,28 +78,53 @@ const Step3 = {
     `;
   },
   after_render: async () => {
-    const name = document.getElementById('name');
-    const email = document.getElementById('email');
-    const phone = document.getElementById('phone');
+    const $name = document.getElementById('name');
+    const $email = document.getElementById('email');
+    const $phone = document.getElementById('phone');
+    const $submitBtn = document.getElementById('submit_btn');
+    const $backBtn = document.getElementById('back_button');
+    const validation = () => {
+      const isValid = {
+        name: false,
+        phone: false,
+        email: false,
+      };
+      // todo if validation
+      if ($name.value !== '' && $phone.value !== '') {
+        storage.setBudgetValue('name', $name.value);
+        isValid.name = true;
+      }
+      if ($phone.value !== '') {
+        storage.setBudgetValue('phone', $phone.value);
+        isValid.phone = true;
+      }
+      if ($email.value !== '') {
+        isValidEmail($email.value);
+        isValid.email = true;
+      }
+      // end if
+      return isValid;
+    };
 
-    name.value = storage.getBudgetValue('name');
-    email.value = storage.getBudgetValue('email');
-    phone.value = storage.getBudgetValue('phone');
-
-    document.getElementById('back_button').addEventListener('click', (e) => {
+    $backBtn.addEventListener('click', (e) => {
       e.preventDefault();
       const url = Utils.createURL(storage.getPage(), storage.getPrev());
-      console.log('click_prev', JSON.stringify(storage));
+      validation();
       Utils.goto(url);
     });
 
-    document.getElementById('submit_btn').addEventListener('click', (e) => {
+    $submitBtn.addEventListener('click', (e) => {
       e.preventDefault();
       const url = Utils.createURL(storage.getPage(), storage.getNext());
-      // todo
-      console.log('click3', JSON.stringify(storage));
-      Utils.goto(url);
+      const isValid = validation();
+      if (isValid.name && isValid.phone && isValid.email) {
+        Utils.goto(url);
+      }
     });
+
+    $name.value = storage.getBudgetValue('name');
+    $email.value = storage.getBudgetValue('email');
+    $phone.value = storage.getBudgetValue('phone');
   },
 };
 

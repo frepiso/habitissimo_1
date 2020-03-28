@@ -20,7 +20,7 @@ class RouterStorage {
    * @param {object} router
    */
   setRouter(router) {
-    return this.router = router;
+    this.router = router;
   }
 
   /**

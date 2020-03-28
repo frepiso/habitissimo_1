@@ -25,7 +25,7 @@ class BudgetStorage {
    * @param {object} budget
    */
   setBudget(budget) {
-    return this.budget = budget;
+    this.budget = budget;
   }
 
   /**

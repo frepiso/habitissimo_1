@@ -34,7 +34,7 @@ const Step1 = {
           </div>
           <div class="ss-step1-input2">
             <select id="date" name="date" type="text" class="ss-select" >
-              <option value="" selected disabled><${keys.date_placeholder}</option>
+              <option value="" selected><${keys.date_placeholder}</option>
               <option value="1">${keys.date_1}</option>
               <option value="2">${keys.date_2}</option>
               <option value="3">${keys.date_3}</option>
@@ -51,22 +51,26 @@ const Step1 = {
     `;
   },
   after_render: async () => {
-    const description = document.getElementById('description');
-    const date = document.getElementById('date');
+    const $description = document.getElementById('description');
+    const $date = document.getElementById('date');
+    const $submitBtn = document.getElementById('submit_btn');
+    const saveData = () => {
+      storage.setBudgetValue('description', $description.value);
+      storage.setBudgetValue('date', $date.value);
+    };
 
-    description.value = storage.getBudgetValue('description');
-    date.value = storage.getBudgetValue('date');
-
-    document.getElementById('submit_btn').addEventListener('click', (e) => {
+    $submitBtn.addEventListener('click', (e) => {
       e.preventDefault();
       const url = Utils.createURL(storage.getPage(), storage.getNext());
-      // todo
+      // todo if validation
       if (description.value !== '') {
-        storage.setBudgetValue('description', description.value);
-        storage.setBudgetValue('date', date.value);        
+        saveData();
         Utils.goto(url);
       }
     });
+
+    $description.value = storage.getBudgetValue('description');
+    $date.value = storage.getBudgetValue('date');
   },
 };
 

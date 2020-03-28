@@ -29,7 +29,7 @@ const Utils = {
     window.location = url;
   },
   saveStorage: (storage) => {
-    localStorage.setItem('HabittisimoStorage', JSON.stringify({router: storage.getRouter(), budget: storage.getBudget(),}));
+    localStorage.setItem('HabittisimoStorage', JSON.stringify({router: storage.getRouter(), budget: storage.getBudget()}));
   },
 };
 

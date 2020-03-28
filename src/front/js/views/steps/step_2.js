@@ -11,9 +11,44 @@ const keys = {
   subcategory_placeholder: '',
   preference_text: 'Preferencia precio',
   preference_placeholder: '',
+  preference_cheaper: 'Lo más barato',
+  preference_middle: 'Relación calidad precio',
+  preference_quality: 'Mejor calidad',
   continue_button: 'Continuar »',
   back_button: '« Volver',
   free_text: 'gratis y sin compromiso',
+  category_reforms: 'Reformas',
+  category_building: 'Construcción',
+  category_move: 'Mudanza',
+  category_tecnics: 'Técnicos',
+  category_brickwork: 'Obra menor',
+};
+
+const fetchData = async (id) => {
+  const options = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'text/plain',
+    },
+  };
+  try {
+    const response = await fetch(`http://localhost:3000/categories/` + id, options);
+    const json = await response.json();
+    return json;
+  } catch (err) {
+    console.log('Error getting data server', err);
+  }
+};
+
+const updateOptions = async (category) => {
+  let optionsViews = '';
+  if (category) {
+    const options = await fetchData(category);
+    optionsViews = options.map((option) => {
+      return `<option value="${option.id}">${option.value}</option>`;
+    }).join('\n ');
+  }
+  Step2.render_options(optionsViews);
 };
 
 const Step2 = {
@@ -25,14 +60,20 @@ const Step2 = {
             ${keys.category_text}
           </div>
           <div class="ss-step1-input1">
-            <input id="category" name="category" class="ss-input" placeholder="${keys.category_placeholder}"/>
+            <select id="category" name="subcategory" type="text" class="ss-select">
+              <option value="" selected>${keys.category_placeholder}</option>
+              <option value="reforms">${keys.category_reforms}</option>
+              <option value="building">${keys.category_building}</option>
+              <option value="move">${keys.category_move}</option>
+              <option value="tecnics">${keys.category_tecnics}</option>
+              <option value="brickwork">${keys.category_brickwork}</option>
+            <select>
           </div>
           <div class="ss-step1-text2 ss-form-text">
             ${keys.subcategory_text}
           </div>
           <div class="ss-step1-input2">
             <select id="subcategory" name="subcategory" type="text" class="ss-select">
-              <option value="" selected disabled>${keys.subcategory_placeholder}</option>
             <select>
           </div>
           <div class="ss-step2-text3 ss-form-text">
@@ -40,7 +81,10 @@ const Step2 = {
           </div>
           <div class="ss-step2-input3">
             <select id="preference" name="preference" type="text" class="ss-select">
-              <option value="" selected disabled>${keys.preference_placeholder}</option>
+              <option value="" selected>${keys.preference_placeholder}</option>
+              <option value="1">${keys.preference_cheaper}</option>
+              <option value="2">${keys.preference_middle}</option>
+              <option value="3">${keys.preference_quality}</option>
             <select>
           </div>
           <div class="ss-step2-footer">
@@ -57,29 +101,52 @@ const Step2 = {
     `;
   },
   after_render: async () => {
-    const category = document.getElementById('category');
-    const subcategory = document.getElementById('subcategory');
-    const preference = document.getElementById('preference');
+    const $category = document.getElementById('category');
+    const $subcategory = document.getElementById('subcategory');
+    const $preference = document.getElementById('preference');
+    const $submitBtn = document.getElementById('submit_btn');
+    const $backBtn = document.getElementById('back_button');
+    const saveData = () => {
+      storage.setBudgetValue('category', $category.value);
+      storage.setBudgetValue('subcategory', $subcategory.value);
+      storage.setBudgetValue('preference', $preference.value);
+    };
 
-    category.value = storage.getBudgetValue('category');
-    subcategory.value = storage.getBudgetValue('subcategory');
-    preference.value = storage.getBudgetValue('preference');
+    console.log(storage.getBudget());
 
-    document.getElementById('back_button').addEventListener('click', (e) => {
+    $category.addEventListener('change', (e) => {
+      updateOptions($category.value);
+    });
+
+    $backBtn.addEventListener('click', (e) => {
       e.preventDefault();
       const url = Utils.createURL(storage.getPage(), storage.getPrev());
-      console.log('click_prev', JSON.stringify(storage));
+      // todo if validation
+      saveData();
+      // end if
       Utils.goto(url);
     });
 
-    document.getElementById('submit_btn').addEventListener('click', (e) => {
+    $submitBtn.addEventListener('click', (e) => {
       e.preventDefault();
       const url = Utils.createURL(storage.getPage(), storage.getNext());
-      // todo
-      console.log('click_next', JSON.stringify(storage));
-      Utils.saveStorage(storage);
+      // todo if validation
+      saveData();
       Utils.goto(url);
+      // end if
     });
+
+    $category.value = storage.getBudgetValue('category');
+    $preference.value = storage.getBudgetValue('preference');
+    if (storage.getBudgetValue('category')) {
+      updateOptions($category.value);
+    }
+  },
+  render_options: async ($options) => {
+    const $subcategory = document.getElementById('subcategory');
+    const $defaulValue = `<option value="" selected>${keys.subcategory_placeholder}</option>`;
+    $subcategory.innerHTML = $defaulValue + $options;
+    $subcategory.value = storage.getBudgetValue('subcategory');
   },
 };
 

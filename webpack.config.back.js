@@ -13,5 +13,16 @@ module.exports = {
     path: path.join(basePath, distPath),
     filename: "server.js"
   },
+  module: {
+    rules: [
+      {
+        test: /\.js/,
+        exclude: /node_modules/,
+        use: [
+          'eslint-loader',
+        ],
+      },
+    ],
+  },
   externals: [nodeExternals()],
 };

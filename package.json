@@ -8,10 +8,8 @@
     "clean": "rm -r ./dist/",
     "build": "webpack --config=webpack.config.js --env.development=true",
     "build-prod": "webpack --config=webpack.config.js --env.production=true",
-    "front": "webpack-dev-server --config=webpack.config.js --env.production=true",
-    "back": "node dist/back/server.js",
-    "start": "npm run back & npm run front",
-    "dev": "npm run clean & npm run build & npm run front"
+    "front": "webpack-dev-server --config=webpack.config.js --env.development=true",
+    "back": "node dist/back/server.js"
   },
   "repository": {
     "type": "git",
@@ -23,7 +21,7 @@
   "bugs": {
     "url": "https://github.com/frepiso/habitissimo_1/issues"
   },
-  "homepage": "https://github.com/frepiso/habitissimo_1#readme",  
+  "homepage": "https://github.com/frepiso/habitissimo_1#readme",
   "devDependencies": {
     "@babel/core": "^7.9.0",
     "@babel/polyfill": "^7.8.7",
@@ -56,14 +54,14 @@
     "webpack-node-externals": "^1.7.2"
   },
   "dependencies": {
-    "body-parser": "^1.18.3",
-    "express": "^4.16.4",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.24.0",
-    "moment-timezone": "^0.5.23",
-    "mongoose": "^5.4.21",
+    "moment-timezone": "^0.5.28",
+    "mongoose": "^5.9.6",
     "node-uuid": "^1.4.8",
-    "swagger-ui-express": "^4.0.2",
+    "swagger-ui-express": "^4.1.4",
     "sync-request": "^6.1.0"
   }
 }
