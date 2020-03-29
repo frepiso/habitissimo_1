@@ -1,9 +1,8 @@
 'use strict';
+const Utils = require('../lib/utils');
 
 const isValidEmail = async (email) => {
-  const regexMailPattern = new RegExp(/\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})/);
-  const regexForbiddenPattern = new RegExp(/[\w\-\.]+@([\w\-\.]+\.)*((hotmail))\.[a-z]{2,4}/);
-  return regexMailPattern.test(email) && !regexForbiddenPattern.test(email);
+  return Utils.isValidEmail(email);
 };
 
 exports.validateEmail = (req, res) => {

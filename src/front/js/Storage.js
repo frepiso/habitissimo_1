@@ -6,7 +6,7 @@ import BudgetStorage from './lib/BudgetStorage';
 /**
  * Singleton Storage
  */
-class Storage extends MultiInherit.inherit(RouterStorage, BudgetStorage) {
+class Storage extends MultiInherit.inherit(AuthStorage, RouterStorage, BudgetStorage) {
   /**
    * constructor
    * @return {object} The instance of the storage

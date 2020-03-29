@@ -38,6 +38,9 @@ const Utils = {
         'Content-Type': 'text/plain',
       },
     };
+    if (storage.getAccesToken()) {
+      options.headers['Authorization'] = storage.getAccesToken();
+    }
     try {
       const response = await fetch(url + req, options);
       const json = await response.json();
@@ -54,6 +57,9 @@ const Utils = {
       },
       body: JSON.stringify(req),
     };
+    if (storage.getAccesToken()) {
+      options.headers['Authorization'] = storage.getAccesToken();
+    }
     try {
       const response = await fetch(url, options);
       const json = await response.json();

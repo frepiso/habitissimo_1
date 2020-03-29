@@ -2,7 +2,7 @@
 const ValidatorController = require('../controllers/validator.controller');
 
 exports.routesConfig = (app) => {
-  app.get('/validator/:email', [
+  app.get('/api/validator/:email', [
     ValidatorController.validateEmail,
   ]);
 };
