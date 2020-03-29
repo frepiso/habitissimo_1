@@ -2,6 +2,7 @@
 import MultiInherit from './lib/MultiInherit';
 import RouterStorage from './lib/RouterStorage';
 import BudgetStorage from './lib/BudgetStorage';
+import AuthStorage from './lib/AuthStorage';
 
 /**
  * Singleton Storage

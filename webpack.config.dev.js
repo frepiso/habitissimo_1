@@ -23,7 +23,7 @@ const frontConfig = {
   devServer: {
     contentBase: path.join(basePath, distPath),
     compress: true,
-    port: 9000
+    port: 9000,
   },
   module: {
     rules: [

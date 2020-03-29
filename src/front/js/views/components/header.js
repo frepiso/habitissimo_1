@@ -1,9 +1,6 @@
 'use strict';
 import Utils from '../../lib/utils';
 import Navbar from './navbar.js';
-import Storage from '../../Storage';
-
-const storage = new Storage();
 
 const keys = {
   'register_button': '¡Regístrate gratis!',
@@ -33,7 +30,7 @@ const Header = {
     document.getElementById('header-button').addEventListener('click', (e) => {
       e.preventDefault();
       const url = Utils.createURL('home', '0');
-      Utils.saveStorage(storage);
+      Utils.saveStorage();
       Utils.goto(url);
     });
 

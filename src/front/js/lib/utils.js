@@ -1,5 +1,8 @@
 'use strict';
 import Config from '../config/app.config';
+import Storage from '../Storage';
+
+const storage = new Storage();
 
 const Utils = {
   requestURL: () => {
@@ -28,7 +31,7 @@ const Utils = {
   goto: (url) => {
     window.location = url;
   },
-  saveStorage: (storage) => {
+  saveStorage: () => {
     localStorage.setItem(Config.storage_name, JSON.stringify({router: storage.getRouter(), budget: storage.getBudget()}));
   },
   getData: async (req, url) => {

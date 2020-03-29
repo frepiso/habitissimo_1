@@ -4,7 +4,7 @@ const MiniCSSExtract = require('mini-css-extract-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const basePath = __dirname;
 const distPath = 'dist/front';
-const indextInput = './src/index.html';
+const indextInput = './src/front/index.html';
 const indexOutput = 'index.html';
 const assetsOutput = 'assets/css/';
 const frontConfig = {
@@ -41,9 +41,9 @@ const frontConfig = {
         exclude: /node_modules/,
         use: [
           MiniCSSExtract.loader,
-          { loader: 'css-loader', options: { sourceMap: true, } },
-          { loader: 'postcss-loader', options: { sourceMap: true, } },
-          { loader: 'sass-loader', options: { sourceMap: true,} },
+          { loader: 'css-loader', },
+          { loader: 'postcss-loader', },
+          { loader: 'sass-loader', },
         ],
       },
       {
@@ -51,9 +51,9 @@ const frontConfig = {
         exclude: /node_modules/,
         use: [
           MiniCSSExtract.loader,
-          { loader: 'css-loader', options: { sourceMap: true, } },
-          { loader: 'postcss-loader', options: { sourceMap: true, } },
-          { loader: 'less-loader', options: { sourceMap: true, } },
+          { loader: 'css-loader', },
+          { loader: 'postcss-loader', },
+          { loader: 'less-loader', },
         ],
       },
       {

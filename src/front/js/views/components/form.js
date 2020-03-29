@@ -62,7 +62,7 @@ const Form = {
 
     storage.setNext(nextStep);
     storage.setPrev(prevStep);
-    Utils.saveStorage(storage);
+    Utils.saveStorage();
 
     progressbar.dataset.step = step;
     container.innerHTML = await content.render();

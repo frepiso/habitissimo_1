@@ -1,0 +1,19 @@
+version: '3'
+services:
+  api:
+    container_name: docker-container-api
+    restart: always
+    build: .
+    expose:
+      - '3000'
+    ports:
+      - '3000:3000'
+    links:
+      - db
+  db:
+    container_name: docker-container-mongo
+    image: mongo
+    ports:
+      - '27017:27017'
+    volumes:
+      - './data/mongo:/data/db'

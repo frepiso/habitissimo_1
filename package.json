@@ -1,5 +1,5 @@
 {
-  "name": "habitissimo_1",
+  "name": "habitissimo",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -7,7 +7,6 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rm -r ./dist/",
     "build": "webpack --config=webpack.config.js --env.development=true",
-    "build-prod": "webpack --config=webpack.config.js --env.production=true",
     "front": "webpack-dev-server --config=webpack.config.js --env.development=true",
     "back": "node dist/back/server.js"
   },
@@ -60,7 +59,7 @@
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.28",
     "mongoose": "^5.9.6",
-    "node-uuid": "^1.4.8",
+    "mongoose-double": "0.0.1",
     "swagger-ui-express": "^4.1.4",
     "sync-request": "^6.1.0"
   }

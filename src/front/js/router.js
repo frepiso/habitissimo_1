@@ -14,7 +14,7 @@ const Router = async () => {
 
   storage.setPage(page);
   storage.setStep(step);
-  Utils.saveStorage(storage);
+  Utils.saveStorage();
 
   await Render.render();
   await Render.after_render();
