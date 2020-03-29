@@ -3,13 +3,19 @@ services:
   api:
     container_name: docker-container-api
     restart: always
-    build: .
+    build: './src/back'
     expose:
       - '3000'
     ports:
       - '3000:3000'
     links:
       - db
+      - cli
+  cli:
+    container_name: docker-container-cli
+    build: './src/front'
+    ports:
+      - '9000:9000'
   db:
     container_name: docker-container-mongo
     image: mongo
