@@ -70,12 +70,18 @@ exports.create = (budgetData) => {
   });
 };
 
-exports.list = () => {
+exports.list = (perPage, page, email = {}) => {
   return new Promise((resolve, reject) => {
-    return Budget.find({}, (err, budgets) => {
-      if (err) return reject(err);
-      return resolve(budgets);
-    });
+    return Budget.find(email)
+        .limit(perPage)
+        .skip(perPage * page)
+        .exec((err, budgets) => {
+          if (err) {
+            return reject(err);
+          } else {
+            return resolve(budgets);
+          }
+        });
   });
 };
 

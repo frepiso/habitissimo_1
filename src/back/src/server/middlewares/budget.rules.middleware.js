@@ -5,7 +5,6 @@ const UserModel = require('../models/users.model');
 exports.handleUser = (req, res, next) => {
   return UserModel.findByEmail(req.body.email)
       .then((user) => {
-        console.log('user:', user);
         if (!user) {
           UserModel.create({
             email: req.body.email,

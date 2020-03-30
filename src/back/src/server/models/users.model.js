@@ -52,18 +52,9 @@ exports.create = (userData) => {
   });
 };
 
-exports.list = () => {
+exports.list = (perPage, page, email = {}) => {
   return new Promise((resolve, reject) => {
-    return User.find({}, (err, users) => {
-      if (err) return reject(err);
-      return resolve(users);
-    });
-  });
-};
-
-exports.listPerPage = (perPage, page) => {
-  return new Promise((resolve, reject) => {
-    return User.find()
+    return User.find(email)
         .limit(perPage)
         .skip(perPage * page)
         .exec((err, users) => {

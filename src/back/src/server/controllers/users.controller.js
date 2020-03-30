@@ -12,16 +12,7 @@ exports.insert = (req, res) => {
 };
 
 exports.list = (req, res) => {
-  UserModel.list()
-      .then((result) => {
-        res.status(200).send(result);
-      })
-      .catch((err) => {
-        res.status(403).send({err: 'Wrong get list'});
-      });
-};
-
-exports.listPerPage = (req, res) => {
+  const email = req.query.email ? {email: req.query.email} : {};
   const limit = req.query.limit && req.query.limit <= 100 ? parseInt(req.query.limit) : 10;
   let page = 0;
   if (req.query) {
@@ -30,7 +21,7 @@ exports.listPerPage = (req, res) => {
       page = Number.isInteger(req.query.page) ? req.query.page : 0;
     }
   }
-  UserModel.listPerPage(limit, page)
+  UserModel.listPerPage(limit, page, email)
       .then((result) => {
         res.status(200).send(result);
       })

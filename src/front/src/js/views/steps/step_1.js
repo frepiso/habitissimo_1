@@ -69,8 +69,6 @@ const Step1 = {
     const $submitBtn = document.getElementById('submit_btn');
     const $resetBtn = document.getElementById('reset_button');
     const saveData = () => {
-      console.log('save_Data:', $title.value);
-      console.log('save_Data el:', $title);
       storage.setBudgetValue('title', $title.value);
       storage.setBudgetValue('description', $description.value);
       storage.setBudgetValue('date', $date.value);
@@ -99,8 +97,6 @@ const Step1 = {
     $description.addEventListener('focus', (el) => {
       Utils.removeClass(el, 'ss-error');
     });
-
-    console.log('budget:', storage.getBudget());
 
     $title.value = storage.getBudgetValue('title');
     $description.value = storage.getBudgetValue('description');
