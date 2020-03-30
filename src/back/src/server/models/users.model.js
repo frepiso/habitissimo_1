@@ -1,7 +1,8 @@
 'use strict';
-const fs = require('fs');
 const mongoose = require('mongoose');
+const mongoosePatchUpdate = require('mongoose-patch-update');
 require('mongoose').Promise = Promise;
+const objectId = mongoose.Types.ObjectId;
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
@@ -15,51 +16,24 @@ const userSchema = new Schema({
   },
   name: {
     type: String,
-    required: true,
+    required: false,
   },
   phone: {
     type: String,
     required: true,
+  },
+  address: {
+    type: String,
+    required: false,
   },
   permissionLevel: {
     type: Number,
     required: false,
   },
 });
+userSchema.plugin(mongoosePatchUpdate);
 
 const User = mongoose.model('Users', userSchema);
-
-exports.populate = (req, res) => {
-  return fs.readFile('../mocks/users.json', 'utf8', (err, data) => {
-    if (err) return reject(err);
-    const dataFromFile = JSON.parse(data);
-    dataFromFile.forEach((obj) => {
-      const user = new User(obj);
-      user.save((err, doc) => {
-        if (err) return reject(err);
-        return resolve(doc);
-      });
-    });
-  });
-};
-
-exports.findByEmail = (email) => {
-  return new Promise((resolve, reject) => {
-    return User.findOne({email: email}, {password: 0, permissionLevel: 0}, (err, user) => {
-      if (err) return reject(err);
-      return resolve(user);
-    });
-  });
-};
-
-exports.findById = (id) => {
-  return new Promise((resolve, reject) => {
-    return User.findById(id, {password: 0, permissionLevel: 0}, (err, user) => {
-      if (err) return reject(err);
-      return resolve(user);
-    });
-  });
-};
 
 exports.create = (userData) => {
   return new Promise((resolve, reject) => {
@@ -67,19 +41,20 @@ exports.create = (userData) => {
       email: userData.email,
       name: userData.name,
       phone: userData.phone,
+      address: userData.address,
       password: '',
       permissionLevel: 1,
     });
-    return user.save((err, newuser) => {
+    return user.save((err, newUser) => {
       if (err) return reject(err);
-      return resolve(newuser);
+      return resolve(newUser);
     });
   });
 };
 
-exports.list = (perPage, page) => {
+exports.list = () => {
   return new Promise((resolve, reject) => {
-    return User.find({}, {password: 0, permissionLevel: 0}, (err, users) => {
+    return User.find({}, (err, users) => {
       if (err) return reject(err);
       return resolve(users);
     });
@@ -101,28 +76,42 @@ exports.listPerPage = (perPage, page) => {
   });
 };
 
-exports.patchById = (id, userData) => {
+exports.findById = (id) => {
   return new Promise((resolve, reject) => {
-    return User.findById(id, (err, user) => {
+    return User.findById(id, {password: 0, permissionLevel: 0}, (err, user) => {
       if (err) return reject(err);
-      for (let i in userData) { // eslint-disable-line
-        if (['name', 'phone'].includes(i)) {
-          user[i] = userData[i];
-        }
-      }
-      user.save((err, updatedUser) => {
-        if (err) return reject(err);
-        return resolve(updatedUser);
-      });
+      return resolve(user);
     });
   });
 };
 
-exports.removeById = (userId) => {
+exports.patchById = (id, userData) => {
   return new Promise((resolve, reject) => {
-    return User.remove({_id: userId}, (err, profile) => {
+    const query = {_id: objectId(id)};
+    const updateParams = userData;
+    const protectedKeys = ['email'];
+    const selectedKeys = '';
+    return User.patchUpdate(query, updateParams, protectedKeys, selectedKeys, (err, updated) => {
       if (err) return reject(err);
-      return resolve(profile);
+      return resolve(updated);
+    });
+  });
+};
+
+exports.removeById = (id) => {
+  return new Promise((resolve, reject) => {
+    return User.deleteOne({_id: id}, (err, deletedCount) => {
+      if (err) reject(err);
+      return resolve(deletedCount);
+    });
+  });
+};
+
+exports.findByEmail = (email) => {
+  return new Promise((resolve, reject) => {
+    return User.findOne({email: email}, {password: 0, permissionLevel: 0}, (err, user) => {
+      if (err) return reject(err);
+      return resolve(user);
     });
   });
 };

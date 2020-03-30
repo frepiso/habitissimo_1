@@ -1,10 +1,12 @@
 'use strict';
-const fs = require('fs');
 const mongoose = require('mongoose');
+const mongoosePatchUpdate = require('mongoose-patch-update');
 require('mongoose').Promise = Promise;
+const objectId = mongoose.Types.ObjectId;
 const Schema = mongoose.Schema;
 
-exports.statusType = ['pendiente', 'publicada', 'descartada'];
+const statusType = ['pendiente', 'publicada', 'descartada'];
+exports.statusType = statusType;
 
 const budgetSchema = new Schema({
   title: {
@@ -15,11 +17,11 @@ const budgetSchema = new Schema({
     type: String,
     required: true,
   },
-  cateogry: {
+  category: {
     type: String,
     required: false,
   },
-  subcateogry: {
+  subcategory: {
     type: String,
     required: false,
   },
@@ -44,28 +46,35 @@ const budgetSchema = new Schema({
     required: true,
   },
 });
+budgetSchema.plugin(mongoosePatchUpdate);
 
 const Budget = mongoose.model('Budgets', budgetSchema);
 
-exports.populate = (req, res) => {
-  return fs.readFile('../mocks/budgets.json', 'utf8', (err, data) => {
-    if (err) return reject(err);
-    const dataFromFile = JSON.parse(data);
-    dataFromFile.forEach((obj) => {
-      const budget = new Budget(obj);
-      budget.save((err, doc) => {
-        if (err) return reject(err);
-        return resolve(doc);
-      });
+exports.create = (budgetData) => {
+  return new Promise((resolve, reject) => {
+    const budget = new Budget({
+      title: budgetData.title,
+      description: budgetData.description,
+      category: budgetData.category,
+      subcategory: budgetData.subcategory,
+      date: budgetData.date,
+      preference: budgetData.preference,
+      address: budgetData.address,
+      status: statusType[0],
+      email: budgetData.email,
+    });
+    return budget.save((err, newBudget) => {
+      if (err) return reject(err);
+      return resolve(newBudget);
     });
   });
 };
 
-exports.findByEmail = (email) => {
+exports.list = () => {
   return new Promise((resolve, reject) => {
-    return Budget.findOne({email: email}, (err, budget) => {
+    return Budget.find({}, (err, budgets) => {
       if (err) return reject(err);
-      return resolve(budget);
+      return resolve(budgets);
     });
   });
 };
@@ -79,57 +88,33 @@ exports.findById = (id) => {
   });
 };
 
-exports.create = (budgetData) => {
-  return new Promise((resolve, reject) => {
-    const budget = new Budget({
-      title: budgetData.title,
-      description: budgetData.description,
-      cateogry: budgetData.cateogry,
-      subcateogry: budgetData.subcateogry,
-      date: budgetData.date,
-      preference: budgetData.preference,
-      address: budgetData.address,
-      status: statusType[0],
-      email: budgetData.email,
-    });
-    return budget.save((err, newbudget) => {
-      if (err) return reject(err);
-      return resolve(newbudget);
-    });
-  });
-};
-
-exports.list = (page) => {
-  return new Promise((resolve, reject) => {
-    return Budget.find({}, (err, budgets) => {
-      if (err) return reject(err);
-      return resolve(budgets);
-    });
-  });
-};
-
 exports.patchById = (id, budgetData) => {
   return new Promise((resolve, reject) => {
-    return User.findById(id, (err, budget) => {
+    const query = {_id: objectId(id)};
+    const updateParams = budgetData;
+    const protectedKeys = ['email'];
+    const selectedKeys = '';
+    return Budget.patchUpdate(query, updateParams, protectedKeys, selectedKeys, (err, updated) => {
       if (err) return reject(err);
-      for (let i in budgetData) { // eslint-disable-line
-        if (['title', 'description', 'subcateogry', 'status'].includes(i)) {
-          budget[i] = budgetData[i];
-        }
-      }
-      budget.save((err, updatedBudget) => {
-        if (err) return reject(err);
-        return resolve(updatedBudget);
-      });
+      return resolve(updated);
     });
   });
 };
 
-exports.removeById = (budgetId) => {
+exports.removeById = (id) => {
   return new Promise((resolve, reject) => {
-    return Budget.remove({_id: budgetId}, (err, profile) => {
+    return Budget.deleteOne({_id: id}, (err, deletedCount) => {
       if (err) reject(err);
-      resolve(profile);
+      return resolve(deletedCount);
+    });
+  });
+};
+
+exports.findByEmail = (email) => {
+  return new Promise((resolve, reject) => {
+    return Budget.findOne({email: email}, (err, budget) => {
+      if (err) return reject(err);
+      return resolve(budget);
     });
   });
 };

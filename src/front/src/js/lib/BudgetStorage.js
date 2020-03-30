@@ -66,8 +66,8 @@ class BudgetStorage {
       if (this.budget.hasOwnProperty(key)) {
         this.budget[key] = '';
       }
-      this.budget.status: 'pendiente',
     }
+    this.budget.status = 'pendiente';
     localStorage.clear();
   }
 }

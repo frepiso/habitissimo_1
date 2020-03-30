@@ -1,16 +1,7 @@
 'use strict';
 const BudgetModel = require('../models/budgets.model');
 
-
-exports.populate = (req, res) => {
-  BudgetModel.populate()
-      .then((result) => {
-        res.status(200).send(result);
-      });
-};
-
 exports.insert = (req, res) => {
-  console.log(req.body);
   BudgetModel.create(req.body)
       .then((result) => {
         res.status(201).send({id: result._id});
@@ -39,22 +30,11 @@ exports.getById = (req, res) => {
         res.status(403).send({err: 'Wrong get budget'});
       });
 };
-exports.publish = (req, res, next) => {
-
-};
-
-exports.discard = (req, res, next) => {
-
-};
 
 exports.patchById = (req, res) => {
-  BudgetModel.patchById(req.params.budgetId, {
-    title: req.body.title,
-    description: req.body.description,
-    subcategory: req.body.subcategory,
-  })
+  BudgetModel.patchById(req.body.id, req.body)
       .then((result) => {
-        res.status(201).send({});
+        res.status(201).send(result);
       })
       .catch((err) => {
         res.status(403).send({err: 'Wrong budget data'});
@@ -62,9 +42,9 @@ exports.patchById = (req, res) => {
 };
 
 exports.removeById = (req, res) => {
-  BudgetModel.removeById(req.params.budgetId)
+  BudgetModel.removeById(req.body.id)
       .then((result)=>{
-        res.status(204).send({});
+        res.status(204).send(result);
       })
       .catch((err) => {
         res.status(403).send({err: 'Error removing budget'});
