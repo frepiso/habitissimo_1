@@ -26,8 +26,6 @@ exports.routesConfig = (app) => {
     BudgetsController.patchById,
   ]);
   app.delete('/api/budgets', [
-    // ValidationMiddleware.validJWTNeeded,
-    // PermissionMiddleware.minimumPermissionLevelRequired(ADMIN),
     BudgetsController.removeById,
   ]);
 };

@@ -71,14 +71,13 @@ const Step4 = {
     });
   },
   after_request: async (res) => {
-    console.log('Step4.after_request:', res); // todo delete
     const $loading = document.getElementById('loading');
     const $ok = document.getElementById('ok');
     const $ko = document.getElementById('ko');
     const $toToogle = !res.err ? $ok : $ko;
     Utils.toggle($loading);
     Utils.toggle($toToogle);
-    if (!res) {
+    if (res.err) {
       const $retry = document.getElementById('retry');
       $retry.addEventListener('click', (e) => {
         e.preventDefault();
