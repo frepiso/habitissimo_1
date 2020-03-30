@@ -1,5 +1,4 @@
 'use strict';
-
 const CategoriesMock = {
   reforms: [
     {id: 1, value: 'Reformas viviendas'},

@@ -12,8 +12,8 @@ exports.routesConfig = (app) => {
     UsersController.insert,
   ]);
   app.get('/api/users', [
-    ValidationMiddleware.validJWTNeeded,
-    PermissionMiddleware.minimumPermissionLevelRequired(ADMIN),
+    // ValidationMiddleware.validJWTNeeded,
+    // PermissionMiddleware.minimumPermissionLevelRequired(ADMIN),
     UsersController.list,
   ]);
   app.get('/api/users/:userId', [
@@ -32,5 +32,8 @@ exports.routesConfig = (app) => {
     ValidationMiddleware.validJWTNeeded,
     PermissionMiddleware.minimumPermissionLevelRequired(ADMIN),
     UsersController.removeById,
+  ]);
+  app.get('/api/populate_users', [
+    UsersController.populate,
   ]);
 };

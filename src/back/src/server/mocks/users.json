@@ -1,0 +1,16 @@
+[
+  {
+    email: 'admin@gmail.com',
+    name: 'Admin',
+    phone: '686000001',
+    password: '',
+    permissionLevel: 2048
+  },
+  {
+    email: 'jhondoe@gmail.com',
+    name: 'Jhon Doe',
+    phone: '686000001',
+    password: '',
+    permissionLevel: 1
+  }
+]

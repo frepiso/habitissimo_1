@@ -1,7 +1,7 @@
 'use strict';
+const fs = require('fs');
 const mongoose = require('mongoose');
-require('mongoose-double')(mongoose);
-mongoose.set('useCreateIndex', true);
+require('mongoose').Promise = Promise;
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
@@ -9,10 +9,10 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
-  // password: {
-  //   type: String,
-  //   required: false,
-  // },
+  password: {
+    type: String,
+    required: false,
+  },
   name: {
     type: String,
     required: true,
@@ -29,53 +29,73 @@ const userSchema = new Schema({
 
 const User = mongoose.model('Users', userSchema);
 
+exports.populate = (req, res) => {
+  return fs.readFile('../mocks/users.json', 'utf8', (err, data) => {
+    if (err) return reject(err);
+    const dataFromFile = JSON.parse(data);
+    dataFromFile.forEach((obj) => {
+      const user = new User(obj);
+      user.save((err, doc) => {
+        if (err) return reject(err);
+        return resolve(doc);
+      });
+    });
+  });
+};
+
 exports.findByEmail = (email) => {
   return new Promise((resolve, reject) => {
-    User.findOne({email: email}, {password: 0, permissionLevel: 0}, (err, user) => {
-      if (err) reject(err);
-      resolve(user);
+    return User.findOne({email: email}, {password: 0, permissionLevel: 0}, (err, user) => {
+      if (err) return reject(err);
+      return resolve(user);
     });
   });
 };
 
 exports.findById = (id) => {
   return new Promise((resolve, reject) => {
-    User.findById(id, {password: 0, permissionLevel: 0}, (err, user) => {
-      if (err) reject(err);
-      resolve(user);
+    return User.findById(id, {password: 0, permissionLevel: 0}, (err, user) => {
+      if (err) return reject(err);
+      return resolve(user);
     });
   });
 };
 
 exports.create = (userData) => {
   return new Promise((resolve, reject) => {
-    const user = new Profile(userData);
-    user.save((err, newuser) => {
+    const user = new User({
+      email: userData.email,
+      name: userData.name,
+      phone: userData.phone,
+      password: '',
+      permissionLevel: 1,
+    });
+    return user.save((err, newuser) => {
       if (err) return reject(err);
-      resolve(newuser);
+      return resolve(newuser);
     });
   });
 };
 
 exports.list = (perPage, page) => {
   return new Promise((resolve, reject) => {
-    User.find({}, {password: 0, permissionLevel: 0}, (err, users) => {
-      if (err) reject(err);
-      resolve(users);
+    return User.find({}, {password: 0, permissionLevel: 0}, (err, users) => {
+      if (err) return reject(err);
+      return resolve(users);
     });
   });
 };
 
 exports.listPerPage = (perPage, page) => {
   return new Promise((resolve, reject) => {
-    User.find()
+    return User.find()
         .limit(perPage)
         .skip(perPage * page)
         .exec((err, users) => {
           if (err) {
-            reject(err);
+            return reject(err);
           } else {
-            resolve(users);
+            return resolve(users);
           }
         });
   });
@@ -83,8 +103,8 @@ exports.listPerPage = (perPage, page) => {
 
 exports.patchById = (id, userData) => {
   return new Promise((resolve, reject) => {
-    User.findById(id, (err, user) => {
-      if (err) reject(err);
+    return User.findById(id, (err, user) => {
+      if (err) return reject(err);
       for (let i in userData) { // eslint-disable-line
         if (['name', 'phone'].includes(i)) {
           user[i] = userData[i];
@@ -100,9 +120,9 @@ exports.patchById = (id, userData) => {
 
 exports.removeById = (userId) => {
   return new Promise((resolve, reject) => {
-    User.remove({_id: userId}, (err, profile) => {
-      if (err) reject(err);
-      resolve(profile);
+    return User.remove({_id: userId}, (err, profile) => {
+      if (err) return reject(err);
+      return resolve(profile);
     });
   });
 };

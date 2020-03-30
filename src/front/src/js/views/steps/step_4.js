@@ -75,7 +75,7 @@ const Step4 = {
     const $loading = document.getElementById('loading');
     const $ok = document.getElementById('ok');
     const $ko = document.getElementById('ko');
-    const $toToogle = res ? $ok : $ko;
+    const $toToogle = !res.err ? $ok : $ko;
     Utils.toggle($loading);
     Utils.toggle($toToogle);
     if (!res) {

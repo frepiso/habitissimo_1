@@ -1,4 +1,4 @@
-# Frontend challenge Habitissimo
+# Frontend & Backend challenge Habitissimo
 
 
 docker-compose up

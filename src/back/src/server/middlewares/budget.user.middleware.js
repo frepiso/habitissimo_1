@@ -2,17 +2,28 @@
 const UserModel = require('../models/users.model');
 
 exports.handleNewBudgetUser = (req, res, next) => {
-  UserModel.findByEmail(req.body.budget.email)
+  return UserModel.findByEmail(req.body.email)
       .then((user) => {
         if (!user[0]) {
-          // no encontrado
-          // se creará un nuevo usuario con el email, nombre y telefono
-          console.log('usuario NO encontrado');
+          UserModel.create(req.body)
+              .then(() => {
+                return next();
+              })
+              .catch((err) => {
+                return res.status(403).send({err: 'Error adding user budget'});
+              });
         } else {
-          // encontrado
-          // se guardará el nombre y telefono
-          console.log('usuario SI encontrado');
+          UserModel.patchById(req.body.email, req.body)
+              .then(() => {
+                return next();
+              })
+              .catch((err) => {
+                return res.status(403).send({err: 'Error updating user budget'});
+              });
         }
-        return next();
+        // return next();
+      }).
+      catch((err) => {
+        return res.status(403).send({err: 'Error handling user budget'});
       });
 };

@@ -19,6 +19,7 @@ class BudgetStorage {
       email: '',
       phone: '',
       address: '',
+      status: 'pendiente',
     };
   }
 
@@ -65,6 +66,7 @@ class BudgetStorage {
       if (this.budget.hasOwnProperty(key)) {
         this.budget[key] = '';
       }
+      this.budget.status: 'pendiente',
     }
     localStorage.clear();
   }

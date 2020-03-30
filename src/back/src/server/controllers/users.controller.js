@@ -2,6 +2,13 @@
 const UserModel = require('../models/users.model');
 const crypto = require('crypto');
 
+exports.populate = (req, res) => {
+  UserModel.populate()
+      .then((result) => {
+        res.status(200).send(result);
+      });
+};
+
 exports.insert = (req, res) => {
   const salt = crypto.randomBytes(16).toString('base64');
   const hash = crypto.createHmac('sha512', salt).update(req.body.password).digest('base64');

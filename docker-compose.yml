@@ -1,5 +1,10 @@
 version: '3'
 services:
+  cli:
+    container_name: docker-container-cli
+    build: './src/front'
+    ports:
+      - '9000:9000'
   api:
     container_name: docker-container-api
     restart: always
@@ -10,12 +15,7 @@ services:
       - '3000:3000'
     links:
       - db
-      - cli
-  cli:
-    container_name: docker-container-cli
-    build: './src/front'
-    ports:
-      - '9000:9000'
+      - cli  
   db:
     container_name: docker-container-mongo
     image: mongo
